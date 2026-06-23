@@ -45,8 +45,8 @@ void bullet::collideBullet(bad Bads[], int num_bads, Sprite& Player) {
 			y >(fy - by) &&
 			y < (fy + by)) {
 			live = false;
-			Bads[i].setLive(false);
 			Player.addScore();
+			Bads[i].setVersion(1);
 			}
 		}
 	}
