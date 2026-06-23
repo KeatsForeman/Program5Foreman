@@ -26,6 +26,8 @@ public:
 	bool CollisionEndBlock();
 	float getAngle() { return angle; }
 	void addScore() { score += 1; }
+	void resetScore() { score = 0; }
+	int getScore() { return score; }
 
 private:
 	float x;
