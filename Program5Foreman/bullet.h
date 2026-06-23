@@ -12,7 +12,7 @@ public:
 	void drawBullet(int xoff, int yoff);
 	void fireBullet(Sprite &player, float angle, int xoff, int yoff);
 	void updateBullet(int WIDTH, int HEIGHT);
-	void collideBullet(bad Bads[], int num_Bads);
+	void collideBullet(bad Bads[], int num_bads, Sprite& Player);
 	bool getLive();
 	int getX();
 	int getY();

@@ -9,17 +9,17 @@ bad::bad() {
 	boundx = 32;
 	boundy = 32;
 	version = 0;
-	image = al_load_bitmap("bad.png");
-	if (!image) {
+	image[0] = al_load_bitmap("bad.png");
+	if (!image[0]) {
 		std::cout << "FAILED TO LOAD bad.png\n";
 	}
 }
 bad::~bad() {
-	al_destroy_bitmap(image);
+	al_destroy_bitmap(image[0]);
 }
-void bad::drawBad(int v) {
+void bad::drawBad(int v, int xoff, int yoff) {
 	if (live)
-		al_draw_bitmap(image, x, y, 0);
+		al_draw_bitmap(image[v], x - xoff, y - yoff, 0);
 }
 void bad::spawnBad(int xx, int yy) {
 	x = xx;

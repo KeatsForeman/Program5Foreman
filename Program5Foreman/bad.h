@@ -6,7 +6,7 @@ class bad {
 public:
 	bad();
 	~bad();
-	void drawBad(int v);
+	void drawBad(int v, int xoff, int yoff);
 	void spawnBad(int x, int y);
 	void updateBad();
 	void setLive(bool new_live) { live = new_live; };
@@ -24,7 +24,7 @@ private:
 	bool live;
 	int speed;
 	int version;
-	ALLEGRO_BITMAP* image;
+	ALLEGRO_BITMAP* image[2];
 };
 
 #endif

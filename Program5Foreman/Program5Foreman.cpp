@@ -15,11 +15,15 @@
 #include "SpriteSheet.h"
 #include "bad.h"
 #include "bullet.h"
+#include <time.h>
+#include <cstdlib>
 
 
 int collided(int x, int y);
 bool endValue(int x, int y);
 int main(void) {
+
+	srand(time(0));
 
 	if (!al_init()) {
 		return -1;
@@ -39,7 +43,8 @@ int main(void) {
 	bool keys[] = { false, false, false, false, false };
 	enum KEYS { UP, DOWN, LEFT, RIGHT, SPACE };
 	Sprite player;
-	bad bads;
+	bad bads[10];
+	int num_bads = 10;
 	bullet bullets;
 	bool done = false;
 	bool render = false;
@@ -89,8 +94,18 @@ int main(void) {
 	MapDrawFG(xOff, yOff, 0, 0, WIDTH - 1, HEIGHT - 1, 0);
 	player.DrawSprites(xOff, yOff);
 
-	bads.spawnBad(50, 200);
-	bads.drawBad(0);
+	for (int i = 0; i < num_bads; i++) {
+		int badx = rand() % (mapwidth * mapblockwidth);
+		int bady = rand() % (mapheight * mapblockheight);
+		if (bady < 32)
+			bady += 32;
+		if (badx < 32)
+			badx += 32;
+		if (bady > HEIGHT - 32)
+			bady -= 32;
+		bads[i].spawnBad(badx, bady);
+		bads[i].drawBad(0, xOff, yOff);
+	}
 	al_flip_display();
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
@@ -104,6 +119,7 @@ int main(void) {
 		{
 			MapUpdateAnims();
 			bullets.updateBullet(WIDTH, HEIGHT);
+			bullets.collideBullet(bads, num_bads, player);
 			render = true;
 			if (keys[LEFT])
 				player.UpdateSprites(WIDTH, HEIGHT, 0);
@@ -196,7 +212,9 @@ int main(void) {
 
 			//draw foreground tiles
 			MapDrawFG(xOff, yOff, 0, 0, WIDTH, HEIGHT, 0);
-			bads.drawBad(0);
+			for (int i = 0; i < num_bads; i++) {
+				bads[i].drawBad(0, xOff, yOff);
+			}
 			bullets.drawBullet(xOff, yOff);
 			player.DrawSprites(xOff, yOff);
 			al_flip_display();

@@ -33,8 +33,23 @@ void bullet::updateBullet(int WIDTH, int HEIGHT) {
 		live = false;
 }
 //make this
-void bullet::collideBullet(bad Bads[], int num_Bads) {
-	
+void bullet::collideBullet(bad Bads[], int num_bads, Sprite& Player) {
+	if (live) {
+		for (int i = 0; i < num_bads; i++) {
+		int fx = Bads[i].getX();
+		int fy = Bads[i].getY();
+		int bx = Bads[i].getBoundX();
+		int by = Bads[i].getBoundY();
+		if (x > (fx - bx) &&
+			x < (fx + bx) &&
+			y >(fy - by) &&
+			y < (fy + by)) {
+			live = false;
+			Bads[i].setLive(false);
+			Player.addScore();
+			}
+		}
+	}
 }
 
 bool bullet::getLive() { return live; }

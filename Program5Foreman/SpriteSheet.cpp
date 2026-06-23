@@ -27,6 +27,7 @@ void Sprite::InitSprites(int width, int height)
 	animationDirection = 1;
 	isJumping = false;
 	angle = 0;
+	score = 0;
 
 	image = al_load_bitmap("guy.bmp");
 	al_convert_mask_to_alpha(image, al_map_rgb(255, 0, 255));

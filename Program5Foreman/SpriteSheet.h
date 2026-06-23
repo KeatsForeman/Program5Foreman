@@ -25,6 +25,7 @@ public:
 	int getHeight() { return frameHeight; }
 	bool CollisionEndBlock();
 	float getAngle() { return angle; }
+	void addScore() { score += 1; }
 
 private:
 	float x;
@@ -41,6 +42,7 @@ private:
 	int animationDirection;
 	bool isJumping;
 	float angle;
+	int score;
 
 	ALLEGRO_BITMAP* image;
 };
