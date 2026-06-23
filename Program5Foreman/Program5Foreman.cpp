@@ -9,6 +9,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include "mappy_A5.h"
 #include "SpriteSheet.h"
 #include "bad.h"
@@ -22,11 +24,15 @@ int main(void) {
 	if (!al_init()) {
 		return -1;
 	}
+	al_install_audio();
+	al_init_acodec_addon();
 	al_install_keyboard();
 	al_init_image_addon();
 	al_init_primitives_addon();
 	al_init_ttf_addon();
 	al_init_font_addon();
+
+	al_reserve_samples(10);
 
 	const int WIDTH = 900;
 	const int HEIGHT = 480;
@@ -44,6 +50,9 @@ int main(void) {
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
 	ALLEGRO_TIMER* timer;
 	ALLEGRO_BITMAP* image = NULL;
+	ALLEGRO_SAMPLE* sample = al_load_sample("pop.wav");
+	if (!sample)
+		return -5;
 
 	display = al_create_display(WIDTH, HEIGHT);
 	if (!display) {
@@ -53,6 +62,7 @@ int main(void) {
 	if (!font) {
 		return -5;
 	}
+	
 	player.InitSprites(WIDTH, HEIGHT);
 
 	int xOff = 0;
@@ -100,8 +110,10 @@ int main(void) {
 				player.UpdateSprites(WIDTH, HEIGHT, 3);
 			else if (keys[DOWN])
 				player.UpdateSprites(WIDTH, HEIGHT, 4);
-			else if (keys[SPACE])
+			else if (keys[SPACE]) {
 				bullets.fireBullet(player, player.getAngle(), xOff, yOff);
+				al_play_sample(sample, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+			}
 			else
 				player.UpdateSprites(WIDTH, HEIGHT, 2);
 		}
