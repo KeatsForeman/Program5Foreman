@@ -50,9 +50,12 @@ int main(void) {
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
 	ALLEGRO_TIMER* timer;
 	ALLEGRO_BITMAP* image = NULL;
-	ALLEGRO_SAMPLE* sample = al_load_sample("pop.wav");
-	if (!sample)
+	ALLEGRO_SAMPLE* sample1 = al_load_sample("pop.wav");
+	ALLEGRO_SAMPLE* sample2 = al_load_sample("background.wav");
+	if (!sample1 || !sample2)
 		return -5;
+
+	al_play_sample(sample2, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
 
 	display = al_create_display(WIDTH, HEIGHT);
 	if (!display) {
@@ -112,7 +115,7 @@ int main(void) {
 				player.UpdateSprites(WIDTH, HEIGHT, 4);
 			else if (keys[SPACE]) {
 				bullets.fireBullet(player, player.getAngle(), xOff, yOff);
-				al_play_sample(sample, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+				al_play_sample(sample1, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 			}
 			else
 				player.UpdateSprites(WIDTH, HEIGHT, 2);
