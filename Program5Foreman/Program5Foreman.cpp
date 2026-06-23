@@ -136,11 +136,11 @@ int main(void) {
 		leveling = true;
 		level += 1;
 		if (level == 1)
-			time = 180;
-		else if (level == 2)
-			time = 150;
-		else if (level == 3)
 			time = 120;
+		else if (level == 2)
+			time = 100;
+		else if (level == 3)
+			time = 80;
 		else if (level == 4)
 			time = 60;
 		else if (level == 5) {
@@ -286,7 +286,7 @@ int main(void) {
 		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH/2, HEIGHT/2, 0, "YOU MADE IT OUT");
 	}
 	else { 
-		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT / 2, 0, "YOU WERE TRAPPED FOREVER");
+		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT / 2, 0, "YOU WERE TRAPPED FOREVER IN THE LOOP");
 	}
 	al_flip_display();
 	al_rest(5.0);
