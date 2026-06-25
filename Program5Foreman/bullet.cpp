@@ -15,20 +15,20 @@ bullet::~bullet() {
 }
 void bullet::drawBullet(int xoff, int yoff) {
 	if (live)
-		al_draw_bitmap(image, x - xoff, y - yoff, 0);
+		al_draw_rotated_bitmap(image, 9, 3, x - xoff, y - yoff, radian_angle, 0);
 }
 //fix this
 void bullet::fireBullet(Sprite &Player, float angle, int xoff, int yoff) {
 	if (!live) {
-		x = (Player.getX() + 10);
-		y = (Player.getY() + 20);
+		x = (Player.getX() + 25);
+		y = (Player.getY() + 30);
 		radian_angle = angle;
 		live = true;
 	}
 }
 void bullet::updateBullet(int WIDTH, int HEIGHT) {
-	x += (5 * cos(radian_angle));
-	y += (5 * sin(radian_angle));
+	x += (speed * cos(radian_angle));
+	y += (speed * sin(radian_angle));
 	if (((y + 10 <= 0) || (y + 10 > HEIGHT)) || (collided(x, y)))
 		live = false;
 }

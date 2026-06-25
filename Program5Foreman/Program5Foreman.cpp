@@ -285,7 +285,7 @@ int main(void) {
 	if (level >= 5) {
 		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH/2, HEIGHT/2, 0, "YOU MADE IT OUT");
 	}
-	else { 
+	else if (level < 5) { 
 		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT / 2, 0, "YOU WERE TRAPPED FOREVER IN THE LOOP");
 	}
 	al_flip_display();

@@ -10,7 +10,9 @@ bad::bad() {
 	boundy = 32;
 	version = 0;
 	image[0] = al_load_bitmap("bad.png");
+	al_convert_mask_to_alpha(image[0], al_map_rgb(255, 0, 255));
 	image[1] = al_load_bitmap("badDead.png");
+	al_convert_mask_to_alpha(image[1], al_map_rgb(255, 0, 255));
 	if (!image[0]) {
 		std::cout << "FAILED TO LOAD bad.png\n";
 	}
