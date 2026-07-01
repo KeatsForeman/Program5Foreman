@@ -41,7 +41,7 @@ void bullet::collideBullet(bad Bads[], int num_bads, Sprite& Player) {
 				int fy = Bads[i].getY();
 				int bx = Bads[i].getBoundX();
 				int by = Bads[i].getBoundY();
-				if (x > (fx - bx) && x < (fx + bx) && y >(fy - by) && y < (fy + by)) {
+				if (x > fx && x < fx + bx && y > fy && y < fy + bx) {
 					live = false;
 					Player.addScore();
 					Bads[i].setVersion(1);

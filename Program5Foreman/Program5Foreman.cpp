@@ -117,18 +117,21 @@ int main(void) {
 	int tick = 0;
 	int level = 0;
 	bool leveling;
+	int badx;
+	int bady;
 	while (!done) {
 		for (int i = 0; i < num_bads; i++) {
-			int badx = rand() % (mapwidth * mapblockwidth);
-			int bady = rand() % (mapheight * mapblockheight);
-			if (bady < 32)
-				bady += 32;
-			if (badx < 32)
-				badx += 32;
-			if (bady > HEIGHT - 32)
-				bady -= 32;
-			bads[i].spawnBad(badx, bady);
-			bads[i].drawBad(0, xOff, yOff);
+			bool searching = true;
+			while (searching) {
+				badx = rand() % (mapwidth * mapblockwidth);
+				bady = rand() % (mapheight * mapblockheight);
+				if ((!collided(badx, bady)) && (!collided(badx + 32, bady + 32))) {
+					bads[i].spawnBad(badx, bady);
+					bads[i].drawBad(0, xOff, yOff);
+					searching = false;
+				}
+			
+			}
 		}
 		al_flip_display();
 		al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -156,6 +159,10 @@ int main(void) {
 				time -= 1;
 			if (time <= 0)
 				leveling = false;
+			if ((time <= 0) && (level < 5)) {
+				leveling = false;
+				done = true;
+			}
 			if (player.getScore() == 10) {
 				leveling = false;
 				player.resetScore();
@@ -268,6 +275,7 @@ int main(void) {
 				//draw foreground tiles
 				MapDrawFG(xOff, yOff, 0, 0, WIDTH, HEIGHT, 0);
 				for (int i = 0; i < num_bads; i++) {
+					//bads[i].updateBad(player);
 					bads[i].drawBad(bads[i].getVersion(), xOff, yOff);
 				}
 				bullets.drawBullet(xOff, yOff);
@@ -286,7 +294,7 @@ int main(void) {
 		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH/2, HEIGHT/2, 0, "YOU MADE IT OUT");
 	}
 	else if (level < 5) { 
-		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT / 2, 0, "YOU WERE TRAPPED FOREVER IN THE LOOP");
+		al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH / 2 - 150, HEIGHT / 2, 0, "YOU WERE TRAPPED FOREVER IN THE LOOP");
 	}
 	al_flip_display();
 	al_rest(5.0);

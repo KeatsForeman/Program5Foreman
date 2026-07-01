@@ -1,14 +1,16 @@
 #pragma once
 #ifndef BAD_H
 #define BAD_H
+#include "SpriteSheet.h"
 
 class bad {
+	friend int collided(int x, int y);
 public:
 	bad();
 	~bad();
 	void drawBad(int v, int xoff, int yoff);
 	void spawnBad(int x, int y);
-	void updateBad();
+	void updateBad(Sprite& Player);
 	void setLive(bool new_live) { live = new_live; };
 	bool getLive();
 	int getX() { return x; }

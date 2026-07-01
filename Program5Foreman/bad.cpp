@@ -3,6 +3,7 @@
 #include "bad.h"
 #include <iostream>
 
+int collided(int x, int y);
 bad::bad() {
 	speed = 2;
 	live = false;
@@ -31,6 +32,21 @@ void bad::spawnBad(int xx, int yy) {
 	live = true;
 }
 //add player here for score
-void bad::updateBad() {
-	
+void bad::updateBad(Sprite& Player) {
+	int tempx = x;
+	int tempy = y;
+	if (version == 0) {
+		if (x < Player.getX())
+			x += 1;
+		else if (x > Player.getX())
+			x -= 1;
+		if (y < Player.getY())
+			y += 1;
+		else if (y > Player.getY())
+			y -= 1;
+	}
+	if ((collided(x, y)) || (collided(x + 32, y + 32))) {
+		x = tempx;
+		y = tempy;
+	}
 }
