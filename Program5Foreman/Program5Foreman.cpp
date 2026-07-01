@@ -275,7 +275,7 @@ int main(void) {
 				//draw foreground tiles
 				MapDrawFG(xOff, yOff, 0, 0, WIDTH, HEIGHT, 0);
 				for (int i = 0; i < num_bads; i++) {
-					//bads[i].updateBad(player);
+					bads[i].updateBad(player);
 					bads[i].drawBad(bads[i].getVersion(), xOff, yOff);
 				}
 				bullets.drawBullet(xOff, yOff);

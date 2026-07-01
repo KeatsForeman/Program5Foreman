@@ -40,12 +40,12 @@ void bad::updateBad(Sprite& Player) {
 			x += 1;
 		else if (x > Player.getX())
 			x -= 1;
-		if (y < Player.getY())
+		if (y < Player.getY() + 10)
 			y += 1;
-		else if (y > Player.getY())
+		else if (y > Player.getY() + 10)
 			y -= 1;
 	}
-	if ((collided(x, y)) || (collided(x + 32, y + 32))) {
+	if (collided(x, y) || (collided(x + 32, y + 32)) || (collided(x, y + 32)) || (collided(x + 32, y))) {
 		x = tempx;
 		y = tempy;
 	}
